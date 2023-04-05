@@ -4,6 +4,10 @@ require("dotenv").config();
 const userRoute = require("./routes/user");
 const path = require("path");
 
+// CDN CSS
+
+const CSS_URL = "https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.1.0/swagger-ui.min.css";
+
 //swagger
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
@@ -36,7 +40,7 @@ const port = process.env.PORT || 9000;
 // middlewares
 app.use(express.json());
 app.use("/api", userRoute);
-app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)));
+app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)), { customCssUrl: CSS_URL });
 
 // routes
 app.get("/", (req, res) => {
