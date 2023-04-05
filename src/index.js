@@ -33,6 +33,7 @@ const swaggerSpec ={
   apis: [`${path.join(__dirname, "./routes/*.js")}`],
 };
 
+const specs = swaggerJsDoc(swaggerSpec);
 // settings
 const app = express();
 const port = process.env.PORT || 9000;
@@ -40,7 +41,9 @@ const port = process.env.PORT || 9000;
 // middlewares
 app.use(express.json());
 app.use("/api", userRoute);
-app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)), { customCssUrl: CSS_URL });
+app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(specs, { customCssUrl: CSS_URL }));
+
+//app.use("/api-doc", swaggerUI.serve, swaggerUI.setup(swaggerJsDoc(swaggerSpec)), { customCssUrl: CSS_URL });
 
 // routes
 app.get("/", (req, res) => {
